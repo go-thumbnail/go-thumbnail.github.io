@@ -1,0 +1,221 @@
+/* go-thumbnail landing — teal palette, sibling of the go-* family pages.
+   Same token shape as the other org landings; only the hex values change so
+   the pages read as one family. Accent: teal (#0F766E teal-700 / #14B8A6 / #2DD4BF). */
+:root {
+  --fg:       #04211d;
+  --bg:       #f0fdfa;
+  --bg-2:     #ccfbf1;
+  --muted:    #0f766e;
+  --accent:   #0f766e;
+  --accent-2: #14b8a6;
+  --accent-3: #5eead4;
+  --code-bg:  #ccfbf1;
+  --border:   #99f6e4;
+  --thread:   #0f766e;
+  --hero-gradient-1: rgba(94, 234, 212, 0.30);
+  --hero-gradient-2: rgba(15, 118, 110, 0.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg:       #ccfbf1;
+    --bg:       #04211d;
+    --bg-2:     #052e2b;
+    --muted:    #5eead4;
+    --accent:   #2dd4bf;
+    --accent-2: #5eead4;
+    --accent-3: #99f6e4;
+    --code-bg:  #0a3b35;
+    --border:   #115e56;
+    --thread:   #2dd4bf;
+    --hero-gradient-1: rgba(94, 234, 212, 0.22);
+    --hero-gradient-2: rgba(15, 118, 110, 0.30);
+  }
+}
+/* Explicit overrides for the manual toggle (button in nav), independent of the
+   OS-level prefers-color-scheme media query above. No [data-theme] attribute =
+   "system", which the media query already handles. */
+:root[data-theme="dark"] {
+  --fg:       #ccfbf1;
+  --bg:       #04211d;
+  --bg-2:     #052e2b;
+  --muted:    #5eead4;
+  --accent:   #2dd4bf;
+  --accent-2: #5eead4;
+  --accent-3: #99f6e4;
+  --code-bg:  #0a3b35;
+  --border:   #115e56;
+  --thread:   #2dd4bf;
+  --hero-gradient-1: rgba(94, 234, 212, 0.22);
+  --hero-gradient-2: rgba(15, 118, 110, 0.30);
+}
+:root[data-theme="light"] {
+  --fg:       #04211d;
+  --bg:       #f0fdfa;
+  --bg-2:     #ccfbf1;
+  --muted:    #0f766e;
+  --accent:   #0f766e;
+  --accent-2: #14b8a6;
+  --accent-3: #5eead4;
+  --code-bg:  #ccfbf1;
+  --border:   #99f6e4;
+  --thread:   #0f766e;
+  --hero-gradient-1: rgba(94, 234, 212, 0.30);
+  --hero-gradient-2: rgba(15, 118, 110, 0.18);
+}
+
+.theme-toggle {
+  margin-left: 1.25rem;
+  width: 1.9rem;
+  height: 1.9rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-2);
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  transition: border-color 0.18s, color 0.18s;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle-icon::before { content: "\1F310"; font-size: 0.95rem; } /* system: globe */
+.theme-toggle[data-mode="light"] .theme-toggle-icon::before { content: "\2600\FE0F"; } /* sun */
+.theme-toggle[data-mode="dark"] .theme-toggle-icon::before { content: "\1F319"; } /* moon */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Inter", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  margin: 0;
+  line-height: 1.6;
+}
+.container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+nav {
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  background: var(--bg);
+}
+nav .container { display: flex; justify-content: space-between; align-items: center; }
+nav .brand { font-weight: 600; letter-spacing: -0.01em; color: var(--accent); display: inline-flex; align-items: center; gap: 0.5rem; }
+nav .brand-logo { width: 28px; height: 28px; border-radius: 7px; vertical-align: middle; }
+nav a { color: var(--muted); text-decoration: none; margin-left: 1.25rem; }
+nav a:hover { color: var(--fg); }
+
+/* ---------- HERO ---------- */
+.hero { position: relative; padding: 3.5rem 0 2rem; overflow: hidden; }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -10% -10% 30% -10%;
+  background:
+    radial-gradient(60% 60% at 20% 30%, var(--hero-gradient-1) 0%, transparent 70%),
+    radial-gradient(50% 50% at 80% 70%, var(--hero-gradient-2) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero .container { position: relative; z-index: 1; }
+.hero-logo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 96px;
+  height: 96px;
+  border-radius: 22px;
+  margin: 0 0 1.25rem;
+  box-shadow: 0 10px 30px -12px rgba(0,0,0,0.35);
+}
+.hero h1 { font-size: 3rem; margin: 0 0 1rem; letter-spacing: -0.03em; font-weight: 700; }
+.hero h1 .accent {
+  background: linear-gradient(135deg, var(--accent) 20%, var(--accent-2) 60%, var(--accent-3) 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+}
+.hero .tag { font-size: 1.2rem; color: var(--muted); margin: 0 0 1.6rem; font-style: italic; }
+.hero .intro p { font-size: 1.05rem; margin: 0 0 1.2rem; max-width: 72ch; }
+
+.pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1.6rem; }
+.pill {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-2);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- BODY SECTIONS ---------- */
+h2 {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+}
+h3 { font-size: 1.05rem; margin-top: 1.5rem; }
+code {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+pre {
+  background: var(--code-bg);
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  border: 1px solid var(--border);
+}
+pre code { background: none; padding: 0; font-size: 1em; }
+ul.features { padding-left: 1.2rem; }
+ul.features li { margin-bottom: 0.5rem; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.card {
+  border: 1px solid var(--border);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  background: var(--bg);
+  transition: border-color 0.18s, transform 0.18s;
+}
+.card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.card h4 { margin: 0 0 0.3rem; font-size: 0.95rem; font-weight: 600; }
+.card .kind {
+  float: right;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.05rem 0.5rem;
+}
+.card p  { margin: 0; font-size: 0.88rem; color: var(--muted); }
+.card h4 a { color: inherit; text-decoration: none; }
+.card h4 a:hover { color: var(--accent); }
+
+footer {
+  margin-top: 4rem;
+  border-top: 1px solid var(--border);
+  padding: 1.5rem 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+a { color: var(--accent); }
+a:hover { color: var(--accent-2); }

@@ -1,0 +1,41 @@
+baseURL = 'https://go-thumbnail.github.io/'
+locale  = 'en-us'
+title   = 'go-thumbnail'
+# No theme — layouts live in ./layouts
+
+disableKinds = ['taxonomy', 'term', 'rss', 'sitemap']
+
+[params]
+  titleSuffix = "pure-Go freedesktop thumbnails"
+  description = "go-thumbnail is a pure-Go (CGO=0) implementation of the freedesktop.org Thumbnail Managing Standard: a spec-faithful thumbnail cache that interoperates with existing desktop tools."
+  brand       = "go-thumbnail"
+  github      = "go-thumbnail"
+  heroAccent  = "go-thumbnail"
+  heroTagline = "The freedesktop.org Thumbnail Managing Standard, in pure Go. No cgo, no external tools."
+
+  heroIntro = [
+    "<strong>go-thumbnail</strong> is a pure-Go (<code>CGO_ENABLED=0</code>) implementation of the freedesktop.org <a href=\"https://specifications.freedesktop.org/thumbnail/latest-single/\">Thumbnail Managing Standard</a>. It generates and caches file thumbnails <strong>exactly where and how the standard prescribes</strong>, so the thumbnails it writes are visible to other compliant tools &mdash; file managers, image viewers &mdash; and vice-versa.",
+    "Canonical cache under <code>$XDG_CACHE_HOME/thumbnails</code> in the standard size buckets, the required PNG metadata, fail markers, and shared-repository handling &mdash; a single portable module that cross-compiles to a static binary."
+  ]
+
+[menu]
+  [[menu.main]]
+    identifier = "why"
+    name       = "Why"
+    url        = "#why"
+    weight     = 10
+  [[menu.main]]
+    identifier = "repos"
+    name       = "Module"
+    url        = "#repos"
+    weight     = 20
+  [[menu.main]]
+    identifier = "quality"
+    name       = "Quality"
+    url        = "#quality"
+    weight     = 30
+  [[menu.main]]
+    identifier = "docs"
+    name       = "Docs"
+    url        = "https://go-thumbnail.github.io/docs/"
+    weight     = 40

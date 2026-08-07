@@ -1,0 +1,63 @@
+{{ define "main" }}
+<section class="hero">
+  <img class="hero-logo" src="{{ "img/logo.svg" | relURL }}" alt="go-thumbnail logo" width="96" height="96">
+  <h1><span class="accent">{{ .Site.Params.heroAccent }}</span></h1>
+  {{ with .Site.Params.heroTagline }}<p class="tag">{{ . }}</p>{{ end }}
+  <div class="pills">
+    <span class="pill">CGO_ENABLED=0</span>
+    <span class="pill">spec-faithful cache</span>
+    <span class="pill">128 / 256 / 512 / 1024 px</span>
+    <span class="pill">100% coverage</span>
+    <span class="pill">BSD-3-Clause</span>
+  </div>
+  <div class="intro">
+    {{ range .Site.Params.heroIntro }}<p>{{ . | safeHTML }}</p>{{ end }}
+  </div>
+</section>
+
+<section id="why">
+  <h2>Why go-thumbnail</h2>
+  <p>
+    A thumbnail is only useful if the rest of the desktop can see it. go-thumbnail writes
+    thumbnails to the exact canonical location, in the exact PNG format with the exact
+    metadata, that the freedesktop.org
+    <a href="https://specifications.freedesktop.org/thumbnail/latest-single/">Thumbnail Managing Standard</a>
+    prescribes &mdash; so a thumbnail generated here is picked up by file managers and image
+    viewers, and thumbnails they generate are picked up here. All in <strong>pure Go with cgo
+    disabled</strong>: a single portable module that cross-compiles to a static binary, no
+    <code>gdk-pixbuf</code>, no external thumbnailer processes.
+  </p>
+</section>
+
+<section id="repos">
+  <h2>Module</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="kind">lib</span>
+      <h4><a href="https://github.com/go-thumbnail/thumbnail">thumbnail</a></h4>
+      <p>The library. Canonical cache under <code>$XDG_CACHE_HOME/thumbnails/{normal,large,x-large,xx-large}</code> (128 / 256 / 512 / 1024 px), the required PNG <code>tEXt</code> metadata (<code>Thumb::URI</code>, <code>Thumb::MTime</code>, &hellip;), fail markers, and shared-repository handling.</p>
+    </div>
+    <div class="card">
+      <span class="kind">docs</span>
+      <h4><a href="https://go-thumbnail.github.io/docs/">docs</a></h4>
+      <p>Versioned documentation site (MkDocs Material + mike): the API surface, the cache layout, and metadata rules. <a href="https://github.com/go-thumbnail/docs">Source &rarr;</a></p>
+    </div>
+    <div class="card">
+      <span class="kind">brand</span>
+      <h4><a href="https://github.com/go-thumbnail/brand">brand</a></h4>
+      <p>Logos and icons for the organization, in SVG / PNG / JPG / ICO / ICNS across colour, white and black variants.</p>
+    </div>
+  </div>
+</section>
+
+<section id="quality">
+  <h2>Quality bar</h2>
+  <ul class="features">
+    <li><strong>Pure Go.</strong> <code>CGO_ENABLED=0</code> &mdash; no gdk-pixbuf, no external thumbnailer processes.</li>
+    <li><strong>Spec-faithful cache.</strong> Canonical directory layout, PNG <code>tEXt</code> metadata and fail-marker semantics, so the cache interoperates with existing desktop tools.</li>
+    <li><strong>100% test coverage</strong> is the bar, error branches included.</li>
+    <li><strong>Portable.</strong> A single module that cross-compiles to a static binary on every 64-bit target.</li>
+    <li><strong>BSD-3-Clause</strong> on every source file.</li>
+  </ul>
+</section>
+{{ end }}
