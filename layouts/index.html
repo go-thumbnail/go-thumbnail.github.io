@@ -35,7 +35,7 @@
     <div class="card">
       <span class="kind">lib</span>
       <h4><a href="https://github.com/go-thumbnail/thumbnail">thumbnail</a></h4>
-      <p>The library. Canonical cache under <code>$XDG_CACHE_HOME/thumbnails/{normal,large,x-large,xx-large}</code> (128 / 256 / 512 / 1024 px), the required PNG <code>tEXt</code> metadata (<code>Thumb::URI</code>, <code>Thumb::MTime</code>, &hellip;), fail markers, and shared-repository handling.</p>
+      <p>The library. Canonical cache under <code>$XDG_CACHE_HOME/thumbnails/{normal,large,x-large,xx-large}</code> (128 / 256 / 512 / 1024 px), the required PNG <code>tEXt</code> metadata (<code>Thumb::URI</code>, <code>Thumb::MTime</code>, &hellip;), fail markers, and shared-repository handling. Sources are bounded by their header before decoding: <code>WithMaxPixels</code> (default 40 Mpx) refuses an oversized image, and an oversized cache entry is regenerated, never decoded.</p>
     </div>
     <div class="card">
       <span class="kind">docs</span>
