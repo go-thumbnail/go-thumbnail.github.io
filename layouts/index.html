@@ -1,21 +1,94 @@
-{{ define "main" }}
-<section class="hero">
-  <img class="hero-logo" src="{{ "img/logo.svg" | relURL }}" alt="go-thumbnail logo" width="96" height="96">
-  <h1><span class="accent">{{ .Site.Params.heroAccent }}</span></h1>
-  {{ with .Site.Params.heroTagline }}<p class="tag">{{ . }}</p>{{ end }}
-  <div class="pills">
-    <span class="pill">CGO_ENABLED=0</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ .Site.Title }}{{ with .Site.Params.titleSuffix }} &mdash; {{ . }}{{ end }}</title>
+<meta name="description" content="{{ .Site.Params.description }}">
+<link rel="icon" type="image/svg+xml" href="{{ "favicon.svg" | relURL }}">
+{{ partial "styles.html" . }}
+{{/* The template's own rules for what <main> holds, kept for it alone (class legacy),
+     its colours read from the kit's tokens. Written by landingmigrate. */}}
+<style>
+.legacy{--fg:var(--ink);--bg-2:#ccfbf1;--muted:var(--slate);--accent-2:#14b8a6;--accent-3:#5eead4;--code-bg:#ccfbf1;--border:var(--line);--thread:#0f766e;--hero-gradient-1:rgba(94, 234, 212, 0.30);--hero-gradient-2:rgba(15, 118, 110, 0.18)}
+@media(prefers-color-scheme:dark){:root:not([data-theme]) .legacy{--bg-2:#052e2b;--accent-2:#5eead4;--accent-3:#99f6e4;--code-bg:#0a3b35;--thread:#2dd4bf;--hero-gradient-1:rgba(94, 234, 212, 0.22);--hero-gradient-2:rgba(15, 118, 110, 0.30)}}
+:root[data-theme="dark"] .legacy{--bg-2:#052e2b;--accent-2:#5eead4;--accent-3:#99f6e4;--code-bg:#0a3b35;--thread:#2dd4bf;--hero-gradient-1:rgba(94, 234, 212, 0.22);--hero-gradient-2:rgba(15, 118, 110, 0.30)}
+.legacy h2{margin-top: 3rem;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;}
+.legacy h3{font-size: 1.05rem; margin-top: 1.5rem;}
+.legacy code{font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+  font-size: 0.9em;}
+.legacy pre{background: var(--code-bg);
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  border: 1px solid var(--border);}
+.legacy pre code{background: none; padding: 0; font-size: 1em;}
+.legacy ul.features{padding-left: 1.2rem;}
+.legacy ul.features li{margin-bottom: 0.5rem;}
+.legacy .grid{display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;}
+.legacy .card{border: 1px solid var(--border);
+  padding: 1rem 1.2rem;
+  border-radius: 8px;
+  background: var(--bg);
+  transition: border-color 0.18s, transform 0.18s;}
+.legacy .card:hover{border-color: var(--accent); transform: translateY(-1px);}
+.legacy .card h4{margin: 0 0 0.3rem; font-size: 0.95rem; font-weight: 600;}
+.legacy .card .kind{float: right;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.05rem 0.5rem;}
+.legacy .card p{margin: 0; font-size: 0.88rem; color: var(--muted);}
+.legacy .card h4 a{color: inherit; text-decoration: none;}
+.legacy .card h4 a:hover{color: var(--accent);}
+</style>
+</head>
+<body class="lm">
+  <header class="nav"><div class="wrap">
+    <a class="brand" href="/"><img class="glyph" src="/img/logo.svg" width="32" height="32" alt="go-thumbnail logo"> {{ .Site.Title }}</a>
+    {{ partial "theme-toggle.html" . }}
+  </div></header>
+  {{ partial "fork-ribbon.html" "https://github.com/go-thumbnail" }}
+
+  <div class="hero"><div class="wrap">
+    <div>
+      <h1 class="head"><span class="accent">{{ .Site.Params.heroAccent }}</span></h1>
+      <div class="legacy">{{ with .Site.Params.heroTagline }}<p class="tag">{{ . }}</p>{{ end }}
+  
+  <div class="intro">
+    {{ range .Site.Params.heroIntro }}<p>{{ . | safeHTML }}</p>{{ end }}
+  </div></div>
+      <div class="trust">{{ if not (partial "mantra-on.html" $) }}<span class="pill">CGO_ENABLED=0</span>{{ end }}
     <span class="pill">spec-faithful cache</span>
     <span class="pill">128 / 256 / 512 / 1024 px</span>
     <span class="pill">100% coverage</span>
-    <span class="pill">BSD-3-Clause</span>
-  </div>
-  <div class="intro">
-    {{ range .Site.Params.heroIntro }}<p>{{ . | safeHTML }}</p>{{ end }}
-  </div>
-</section>
+    {{ if not (partial "mantra-on.html" $) }}<span class="pill">BSD-3-Clause</span>{{ end }}</div>
+    </div>
+    {{ partial "hero-carousel.html" . }}
+  </div></div>
 
-<section id="why">
+  {{ with .Site.Params.repos }}<div class="strip"><div class="wrap">
+    <span class="lead-line">One organisation, <b>{{ len . }}</b> repositories</span>
+    <div class="mods">{{ range . }}<a href="#repos">{{ .name }}</a>{{ end }}</div>
+  </div></div>{{ end }}
+
+  <main id="repos" class="legacy"><div class="wrap"><section id="why">
   <h2>Why go-thumbnail</h2>
   <p>
     A thumbnail is only useful if the rest of the desktop can see it. go-thumbnail writes
@@ -59,5 +132,8 @@
     <li><strong>Portable.</strong> A single module that cross-compiles to a static binary on every 64-bit target.</li>
     <li><strong>BSD-3-Clause</strong> on every source file.</li>
   </ul>
-</section>
-{{ end }}
+</section>  </div></main>
+
+  <footer><div class="wrap"><span>{{ .Site.Params.brandName }} &mdash; <a href="https://github.com/{{ .Site.Params.github }}">{{ .Site.Params.github }} on GitHub</a> &middot; {{ if not (partial "mantra-on.html" $) }}BSD-3-Clause &middot; {{ end }}{{ if not (partial "mantra-on.html" $) }}pure Go{{ end }}</span></div></footer>
+</body>
+</html>
